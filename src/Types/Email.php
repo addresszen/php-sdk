@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * Email Object
+ *
+ * @phpstan-type EmailArray array{result: 'deliverable'|'not_deliverable', deliverable: bool, disposable: bool, free: bool, role: bool, catchall: bool, suggestions: list<string>}
+ *
+ * @implements ResponseContract<EmailArray>
+ */
+final class Email implements ResponseContract
+{
+    /** @use ArrayAccessible<EmailArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * @var 'deliverable'|'not_deliverable'
+         */
+        public readonly string $result,
+        /**
+         * Returns `true` if the email can be delivered
+         */
+        public readonly bool $deliverable,
+        /**
+         * Returns `true` if email comes from a disposable email service like temp-mail
+         */
+        public readonly bool $disposable,
+        /**
+         * Returns `true` if the email originates from a free service like Outlook or Gmail.
+         */
+        public readonly bool $free,
+        /**
+         * Returns `true` if email address represents an organisational role like `admin`, `support`, `postmaster` etc
+         */
+        public readonly bool $role,
+        /**
+         * Returns `true` if this domain accepts all emails regardless of username
+         */
+        public readonly bool $catchall,
+        /**
+         * Returns an array of suggested email addresses if the email address is not deliverable. The suggested emails are not validated.
+         *
+         * @var list<string>
+         */
+        public readonly array $suggestions,
+    ) {}
+
+    /**
+     * @param  EmailArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            result: $attributes['result'] ?? throw self::missing('result'),
+            deliverable: $attributes['deliverable'] ?? throw self::missing('deliverable'),
+            disposable: $attributes['disposable'] ?? throw self::missing('disposable'),
+            free: $attributes['free'] ?? throw self::missing('free'),
+            role: $attributes['role'] ?? throw self::missing('role'),
+            catchall: $attributes['catchall'] ?? throw self::missing('catchall'),
+            suggestions: $attributes['suggestions'] ?? throw self::missing('suggestions'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'result' => $this->result,
+            'deliverable' => $this->deliverable,
+            'disposable' => $this->disposable,
+            'free' => $this->free,
+            'role' => $this->role,
+            'catchall' => $this->catchall,
+            'suggestions' => $this->suggestions,
+        ];
+    }
+}

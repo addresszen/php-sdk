@@ -1,0 +1,80 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Responses;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+use AddressZen\Types\InvalidPhoneNumber;
+use AddressZen\Types\PhoneNumber;
+
+/**
+ * Phone Number Verification Response
+ *
+ * @phpstan-import-type InvalidPhoneNumberArray from InvalidPhoneNumber
+ * @phpstan-import-type PhoneNumberArray from PhoneNumber
+ * @phpstan-type PhoneNumberResponseArray array{code: 2000, message: 'Success', result: PhoneNumberArray|InvalidPhoneNumberArray}
+ *
+ * @implements ResponseContract<PhoneNumberResponseArray>
+ */
+final class PhoneNumberResponse implements ResponseContract
+{
+    /** @use ArrayAccessible<PhoneNumberResponseArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * @var 2000
+         */
+        public readonly int $code,
+        /**
+         * @var 'Success'
+         */
+        public readonly string $message,
+        public readonly PhoneNumber|InvalidPhoneNumber $result,
+    ) {}
+
+    /**
+     * @param  PhoneNumberResponseArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            code: $attributes['code'] ?? throw self::missing('code'),
+            message: $attributes['message'] ?? throw self::missing('message'),
+            result: self::hydrateResult(($attributes['result'] ?? throw self::missing('result'))),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+            'message' => $this->message,
+            'result' => $this->result->toArray(),
+        ];
+    }
+
+    /**
+     * @param  PhoneNumberArray|InvalidPhoneNumberArray  $value
+     */
+    private static function hydrateResult(array $value): PhoneNumber|InvalidPhoneNumber
+    {
+        if (self::matches($value, ['valid' => [false]], [])) {
+            /** @var InvalidPhoneNumberArray $variant */
+            $variant = $value;
+
+            return InvalidPhoneNumber::from($variant);
+        }
+
+        /** @var PhoneNumberArray $variant */
+        $variant = $value;
+
+        return PhoneNumber::from($variant);
+    }
+}

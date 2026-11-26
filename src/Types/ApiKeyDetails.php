@@ -1,0 +1,138 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * API Key Details
+ *
+ * @phpstan-import-type ApiKeyAutomatedTopupArray from ApiKeyAutomatedTopup
+ * @phpstan-import-type ApiKeyCurrentPurchaseArray from ApiKeyCurrentPurchase
+ * @phpstan-import-type ApiKeyDailyLimitArray from ApiKeyDailyLimit
+ * @phpstan-import-type ApiKeyDatasetsArray from ApiKeyDatasets
+ * @phpstan-import-type ApiKeyIndividualLimitArray from ApiKeyIndividualLimit
+ * @phpstan-import-type ApiKeyMonthlyLimitArray from ApiKeyMonthlyLimit
+ * @phpstan-import-type ApiKeyNotificationsArray from ApiKeyNotifications
+ * @phpstan-import-type AvailableContextArray from AvailableContext
+ * @phpstan-type ApiKeyDetailsArray array{name: string, contexts: list<AvailableContextArray>, lookups_remaining: int, daily_limit: ApiKeyDailyLimitArray, monthly_limit: ApiKeyMonthlyLimitArray, individual_limit: ApiKeyIndividualLimitArray, allowed_urls: list<string>, redact_days: int, notifications: ApiKeyNotificationsArray, datasets: ApiKeyDatasetsArray, automated_topups: ApiKeyAutomatedTopupArray, current_purchases: list<ApiKeyCurrentPurchaseArray>, ip_forwarding: bool, premier_support: bool}
+ *
+ * @implements ResponseContract<ApiKeyDetailsArray>
+ */
+final class ApiKeyDetails implements ResponseContract
+{
+    /** @use ArrayAccessible<ApiKeyDetailsArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * A name for the key
+         */
+        public readonly string $name,
+        /**
+         * A list of available contexts for a key
+         *
+         * @var list<AvailableContext>
+         */
+        public readonly array $contexts,
+        public readonly int $lookupsRemaining,
+        /**
+         * API Key Daily Limit
+         */
+        public readonly ApiKeyDailyLimit $dailyLimit,
+        /**
+         * API Key Monthly Limit
+         */
+        public readonly ApiKeyMonthlyLimit $monthlyLimit,
+        /**
+         * API Key Individual Limit
+         */
+        public readonly ApiKeyIndividualLimit $individualLimit,
+        /**
+         * A list of allowed URLs. An empty list disables the check.
+         *
+         * @var list<string>
+         */
+        public readonly array $allowedUrls,
+        /**
+         * Number of days to preserve personal data stored in your key usage history. Set to 0 to prevent personal data storage
+         */
+        public readonly int $redactDays,
+        /**
+         * API Key Notifications
+         */
+        public readonly ApiKeyNotifications $notifications,
+        /**
+         * Indicates which datasets are available and added by default to the address responses
+         */
+        public readonly ApiKeyDatasets $datasets,
+        /**
+         * Automated topup status
+         */
+        public readonly ApiKeyAutomatedTopup $automatedTopups,
+        /**
+         * Current balance purchases attached to key.
+         *
+         * @var list<ApiKeyCurrentPurchase>
+         */
+        public readonly array $currentPurchases,
+        /**
+         * Accept IP addresses forwarded in the `AZ-Source-IP` header
+         */
+        public readonly bool $ipForwarding,
+        /**
+         * Whether the key is enrolled in the premier support program and monitored closely by our devops team. Read-only; managed by our team.
+         */
+        public readonly bool $premierSupport,
+    ) {}
+
+    /**
+     * @param  ApiKeyDetailsArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            name: $attributes['name'] ?? throw self::missing('name'),
+            contexts: array_map(static fn ($item) => AvailableContext::from($item), ($attributes['contexts'] ?? throw self::missing('contexts'))),
+            lookupsRemaining: $attributes['lookups_remaining'] ?? throw self::missing('lookups_remaining'),
+            dailyLimit: ApiKeyDailyLimit::from(($attributes['daily_limit'] ?? throw self::missing('daily_limit'))),
+            monthlyLimit: ApiKeyMonthlyLimit::from(($attributes['monthly_limit'] ?? throw self::missing('monthly_limit'))),
+            individualLimit: ApiKeyIndividualLimit::from(($attributes['individual_limit'] ?? throw self::missing('individual_limit'))),
+            allowedUrls: $attributes['allowed_urls'] ?? throw self::missing('allowed_urls'),
+            redactDays: $attributes['redact_days'] ?? throw self::missing('redact_days'),
+            notifications: ApiKeyNotifications::from(($attributes['notifications'] ?? throw self::missing('notifications'))),
+            datasets: ApiKeyDatasets::from(($attributes['datasets'] ?? throw self::missing('datasets'))),
+            automatedTopups: ApiKeyAutomatedTopup::from(($attributes['automated_topups'] ?? throw self::missing('automated_topups'))),
+            currentPurchases: array_map(static fn ($item) => ApiKeyCurrentPurchase::from($item), ($attributes['current_purchases'] ?? throw self::missing('current_purchases'))),
+            ipForwarding: $attributes['ip_forwarding'] ?? throw self::missing('ip_forwarding'),
+            premierSupport: $attributes['premier_support'] ?? throw self::missing('premier_support'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'contexts' => array_map(static fn ($item) => $item->toArray(), $this->contexts),
+            'lookups_remaining' => $this->lookupsRemaining,
+            'daily_limit' => $this->dailyLimit->toArray(),
+            'monthly_limit' => $this->monthlyLimit->toArray(),
+            'individual_limit' => $this->individualLimit->toArray(),
+            'allowed_urls' => $this->allowedUrls,
+            'redact_days' => $this->redactDays,
+            'notifications' => $this->notifications->toArray(),
+            'datasets' => $this->datasets->toArray(),
+            'automated_topups' => $this->automatedTopups->toArray(),
+            'current_purchases' => array_map(static fn ($item) => $item->toArray(), $this->currentPurchases),
+            'ip_forwarding' => $this->ipForwarding,
+            'premier_support' => $this->premierSupport,
+        ];
+    }
+}

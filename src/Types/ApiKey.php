@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * Key
+ *
+ * @phpstan-import-type AvailableContextArray from AvailableContext
+ * @phpstan-type ApiKeyArray array{contexts: list<AvailableContextArray>, context: string|'', available: bool}
+ *
+ * @implements ResponseContract<ApiKeyArray>
+ */
+final class ApiKey implements ResponseContract
+{
+    /** @use ArrayAccessible<ApiKeyArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * A list of available contexts for a key
+         *
+         * @var list<AvailableContext>
+         */
+        public readonly array $contexts,
+        /**
+         * Returns current context if it is in the list of available contexts for this key.
+         *
+         * @var string|''
+         */
+        public readonly string $context,
+        /**
+         * Determines whether the key can be used by the requesting agent.
+         */
+        public readonly bool $available,
+    ) {}
+
+    /**
+     * @param  ApiKeyArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            contexts: array_map(static fn ($item) => AvailableContext::from($item), ($attributes['contexts'] ?? throw self::missing('contexts'))),
+            context: $attributes['context'] ?? throw self::missing('context'),
+            available: $attributes['available'] ?? throw self::missing('available'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'contexts' => array_map(static fn ($item) => $item->toArray(), $this->contexts),
+            'context' => $this->context,
+            'available' => $this->available,
+        ];
+    }
+}

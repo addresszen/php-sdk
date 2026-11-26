@@ -1,0 +1,60 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Responses;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+use AddressZen\Types\PlaceResult;
+
+/**
+ * Place Search Response
+ *
+ * @phpstan-import-type PlaceResultArray from PlaceResult
+ * @phpstan-type PlaceResponseArray array{code: 2000, message: 'Success', result: PlaceResultArray}
+ *
+ * @implements ResponseContract<PlaceResponseArray>
+ */
+final class PlaceResponse implements ResponseContract
+{
+    /** @use ArrayAccessible<PlaceResponseArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * @var 2000
+         */
+        public readonly int $code,
+        /**
+         * @var 'Success'
+         */
+        public readonly string $message,
+        public readonly PlaceResult $result,
+    ) {}
+
+    /**
+     * @param  PlaceResponseArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            code: $attributes['code'] ?? throw self::missing('code'),
+            message: $attributes['message'] ?? throw self::missing('message'),
+            result: PlaceResult::from(($attributes['result'] ?? throw self::missing('result'))),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+            'message' => $this->message,
+            'result' => $this->result->toArray(),
+        ];
+    }
+}

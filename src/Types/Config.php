@@ -1,0 +1,67 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * Config Object
+ *
+ * @phpstan-type ConfigArray array{updatedAt: string, createdAt: string, name: string, payload: string}
+ *
+ * @implements ResponseContract<ConfigArray>
+ */
+final class Config implements ResponseContract
+{
+    /** @use ArrayAccessible<ConfigArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * Timestamp for when the config was last updated
+         */
+        public readonly string $updatedAt,
+        /**
+         * Timestamp for when the config was created
+         */
+        public readonly string $createdAt,
+        /**
+         * A unique name to identify the configuration payload
+         */
+        public readonly string $name,
+        /**
+         * A serialised payload of up to `65536` characters
+         */
+        public readonly string $payload,
+    ) {}
+
+    /**
+     * @param  ConfigArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            updatedAt: $attributes['updatedAt'] ?? throw self::missing('updatedAt'),
+            createdAt: $attributes['createdAt'] ?? throw self::missing('createdAt'),
+            name: $attributes['name'] ?? throw self::missing('name'),
+            payload: $attributes['payload'] ?? throw self::missing('payload'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'updatedAt' => $this->updatedAt,
+            'createdAt' => $this->createdAt,
+            'name' => $this->name,
+            'payload' => $this->payload,
+        ];
+    }
+}

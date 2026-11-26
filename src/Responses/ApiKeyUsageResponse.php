@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Responses;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+use AddressZen\Types\KeyUsageResult;
+
+/**
+ * Key Usage Response
+ *
+ * @phpstan-import-type KeyUsageResultArray from KeyUsageResult
+ * @phpstan-type ApiKeyUsageResponseArray array{result: KeyUsageResultArray, code: 2000, message: 'Success'}
+ *
+ * @implements ResponseContract<ApiKeyUsageResponseArray>
+ */
+final class ApiKeyUsageResponse implements ResponseContract
+{
+    /** @use ArrayAccessible<ApiKeyUsageResponseArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * Key Usage
+         */
+        public readonly KeyUsageResult $result,
+        /**
+         * @var 2000
+         */
+        public readonly int $code,
+        /**
+         * @var 'Success'
+         */
+        public readonly string $message,
+    ) {}
+
+    /**
+     * @param  ApiKeyUsageResponseArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            result: KeyUsageResult::from(($attributes['result'] ?? throw self::missing('result'))),
+            code: $attributes['code'] ?? throw self::missing('code'),
+            message: $attributes['message'] ?? throw self::missing('message'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'result' => $this->result->toArray(),
+            'code' => $this->code,
+            'message' => $this->message,
+        ];
+    }
+}

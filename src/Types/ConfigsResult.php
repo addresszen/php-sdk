@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * ConfigsResponseResult
+ *
+ * List of configurations
+ *
+ * @phpstan-import-type ConfigArray from Config
+ * @phpstan-type ConfigsResultArray array{configs: list<ConfigArray>}
+ *
+ * @implements ResponseContract<ConfigsResultArray>
+ */
+final class ConfigsResult implements ResponseContract
+{
+    /** @use ArrayAccessible<ConfigsResultArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * @var list<Config>
+         */
+        public readonly array $configs,
+    ) {}
+
+    /**
+     * @param  ConfigsResultArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            configs: array_map(static fn ($item) => Config::from($item), ($attributes['configs'] ?? throw self::missing('configs'))),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'configs' => array_map(static fn ($item) => $item->toArray(), $this->configs),
+        ];
+    }
+}

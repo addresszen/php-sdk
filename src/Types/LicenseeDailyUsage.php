@@ -1,0 +1,61 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * LicenseeDaily
+ *
+ * @phpstan-type LicenseeDailyUsageArray array{limit: int|null, count: int, updatedAt: string}
+ *
+ * @implements ResponseContract<LicenseeDailyUsageArray>
+ */
+final class LicenseeDailyUsage implements ResponseContract
+{
+    /** @use ArrayAccessible<LicenseeDailyUsageArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * The maximum number of lookups this licensee can perform in a day. `null` indicates the limit is not active
+         */
+        public readonly ?int $limit,
+        /**
+         * The number of lookups performed by the licensee on the day represented by `licensees.daily.updatedAt`
+         */
+        public readonly int $count,
+        /**
+         * The timestamp when the limit was last used.
+         */
+        public readonly string $updatedAt,
+    ) {}
+
+    /**
+     * @param  LicenseeDailyUsageArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            limit: $attributes['limit'] ?? null,
+            count: $attributes['count'] ?? throw self::missing('count'),
+            updatedAt: $attributes['updatedAt'] ?? throw self::missing('updatedAt'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'limit' => $this->limit,
+            'count' => $this->count,
+            'updatedAt' => $this->updatedAt,
+        ];
+    }
+}

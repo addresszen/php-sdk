@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * LicenseesResponseResult
+ *
+ * List of licensees
+ *
+ * @phpstan-import-type LicenseeArray from Licensee
+ * @phpstan-type LicenseesResultArray array{licensees: list<LicenseeArray>, hasMore: bool}
+ *
+ * @implements ResponseContract<LicenseesResultArray>
+ */
+final class LicenseesResult implements ResponseContract
+{
+    /** @use ArrayAccessible<LicenseesResultArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * @var list<Licensee>
+         */
+        public readonly array $licensees,
+        /**
+         * Returns true if there are more licensees listed after the maximum number of results as implied by `limit`
+         */
+        public readonly bool $hasMore,
+    ) {}
+
+    /**
+     * @param  LicenseesResultArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            licensees: array_map(static fn ($item) => Licensee::from($item), ($attributes['licensees'] ?? throw self::missing('licensees'))),
+            hasMore: $attributes['hasMore'] ?? throw self::missing('hasMore'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'licensees' => array_map(static fn ($item) => $item->toArray(), $this->licensees),
+            'hasMore' => $this->hasMore,
+        ];
+    }
+}

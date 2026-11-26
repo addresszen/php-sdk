@@ -1,0 +1,69 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * Place Suggestion
+ *
+ * Represents a possible place given an autocomplete query.
+ *
+ * @phpstan-type PlaceSuggestionArray array{id: string, name: string, descriptive_name: string, country_iso: string}
+ *
+ * @implements ResponseContract<PlaceSuggestionArray>
+ */
+final class PlaceSuggestion implements ResponseContract
+{
+    /** @use ArrayAccessible<PlaceSuggestionArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * Unique identifier for place
+         */
+        public readonly string $id,
+        /**
+         * Place name
+         */
+        public readonly string $name,
+        /**
+         * Longer form description of the place.
+         */
+        public readonly string $descriptiveName,
+        /**
+         * 3 letter country code (ISO 3166-1)
+         */
+        public readonly string $countryIso,
+    ) {}
+
+    /**
+     * @param  PlaceSuggestionArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            id: $attributes['id'] ?? throw self::missing('id'),
+            name: $attributes['name'] ?? throw self::missing('name'),
+            descriptiveName: $attributes['descriptive_name'] ?? throw self::missing('descriptive_name'),
+            countryIso: $attributes['country_iso'] ?? throw self::missing('country_iso'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'descriptive_name' => $this->descriptiveName,
+            'country_iso' => $this->countryIso,
+        ];
+    }
+}

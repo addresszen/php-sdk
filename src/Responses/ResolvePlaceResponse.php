@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Responses;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+use AddressZen\Types\Place;
+
+/**
+ * Place Resolution Response
+ *
+ * @phpstan-import-type PlaceArray from Place
+ * @phpstan-type ResolvePlaceResponseArray array{code: 2000, message: 'Success', result: PlaceArray}
+ *
+ * @implements ResponseContract<ResolvePlaceResponseArray>
+ */
+final class ResolvePlaceResponse implements ResponseContract
+{
+    /** @use ArrayAccessible<ResolvePlaceResponseArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * @var 2000
+         */
+        public readonly int $code,
+        /**
+         * @var 'Success'
+         */
+        public readonly string $message,
+        /**
+         * A geographical place: an administrative division, capital or seat of administration city drawn from GeoNames. `GET /places` returns a suggestion for each match and `GET /places/{place}` resolves a suggestion id to the full place. `native` holds the underlying GeoNames record.
+         */
+        public readonly Place $result,
+    ) {}
+
+    /**
+     * @param  ResolvePlaceResponseArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            code: $attributes['code'] ?? throw self::missing('code'),
+            message: $attributes['message'] ?? throw self::missing('message'),
+            result: Place::from(($attributes['result'] ?? throw self::missing('result'))),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+            'message' => $this->message,
+            'result' => $this->result->toArray(),
+        ];
+    }
+}

@@ -1,0 +1,81 @@
+{
+    "name": "addresszen/sdk",
+    "description": "PHP client for the AddressZen API: US address verification, address autocomplete, email and phone validation and key management",
+    "type": "library",
+    "keywords": [
+        "addresszen",
+        "address",
+        "address verification",
+        "address autocomplete",
+        "usps",
+        "cass",
+        "sdk",
+        "api"
+    ],
+    "homepage": "https://addresszen.com",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "AddressZen",
+            "email": "support@addresszen.com",
+            "homepage": "https://addresszen.com"
+        }
+    ],
+    "support": {
+        "email": "support@addresszen.com",
+        "docs": "https://docs.addresszen.com/docs/sdks/php",
+        "issues": "https://github.com/addresszen/feedback/issues"
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "php-http/discovery": "^1.20",
+        "psr/http-client": "^1.0",
+        "psr/http-client-implementation": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-factory-implementation": "^1.0",
+        "psr/http-message": "^1.1 || ^2.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.9",
+        "guzzlehttp/psr7": "^2.7",
+        "laravel/pint": "^1.21",
+        "pestphp/pest": "^3.8",
+        "php-http/mock-client": "^1.6",
+        "phpstan/phpstan": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "AddressZen\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AddressZen\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "scripts": {
+        "lint": "pint --test",
+        "lint:fix": "pint",
+        "test:types": [
+            "phpstan analyse --memory-limit=512M",
+            "phpstan analyse --memory-limit=512M -c phpstan.tests.neon.dist"
+        ],
+        "test:unit": "pest --colors=always",
+        "test:live": "pest --colors=always --group=live",
+        "test": [
+            "@lint",
+            "@test:types",
+            "@test:unit"
+        ]
+    }
+}

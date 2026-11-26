@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Responses;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+use AddressZen\Types\Licensee;
+
+/**
+ * Licensee Response
+ *
+ * @phpstan-import-type LicenseeArray from Licensee
+ * @phpstan-type LicenseeResponseArray array{result: LicenseeArray, code: 2000, message: 'Success'}
+ *
+ * @implements ResponseContract<LicenseeResponseArray>
+ */
+final class LicenseeResponse implements ResponseContract
+{
+    /** @use ArrayAccessible<LicenseeResponseArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * Licensee
+         */
+        public readonly Licensee $result,
+        /**
+         * @var 2000
+         */
+        public readonly int $code,
+        /**
+         * @var 'Success'
+         */
+        public readonly string $message,
+    ) {}
+
+    /**
+     * @param  LicenseeResponseArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            result: Licensee::from(($attributes['result'] ?? throw self::missing('result'))),
+            code: $attributes['code'] ?? throw self::missing('code'),
+            message: $attributes['message'] ?? throw self::missing('message'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'result' => $this->result->toArray(),
+            'code' => $this->code,
+            'message' => $this->message,
+        ];
+    }
+}

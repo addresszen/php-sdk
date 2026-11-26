@@ -1,0 +1,278 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * API Key Dataset Availability
+ *
+ * Indicates which datasets are available and added by default to the address responses
+ *
+ * @phpstan-type ApiKeyDatasetsArray array{paf: bool, pafa: bool, pafw: bool, mr: bool, nyb: bool, ab: bool, abp?: bool, nip: bool, usps: bool, ecad: bool, ecaf: bool, gnaf: bool, hereap: bool, herehk: bool, herei: bool, herem: bool, heremea: bool, heremeas: bool, herena: bool, hereo: bool, heresa: bool, heret: bool, hereee: bool, herewe: bool, phone: bool, email: bool, kadaster: bool, kartverket: bool, mois: bool, sdfi: bool, cannar: bool, fodbosa: bool, upujp: bool, bev: bool, ban: bool, swt: bool, gbrcleanse: bool, uspscleanse: bool}
+ *
+ * @implements ResponseContract<ApiKeyDatasetsArray>
+ */
+final class ApiKeyDatasets implements ResponseContract
+{
+    /** @use ArrayAccessible<ApiKeyDatasetsArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * UK Main Address File (Postcode Address File)
+         */
+        public readonly bool $paf,
+        /**
+         * UK Property Alias dataset
+         */
+        public readonly bool $pafa,
+        /**
+         * UK Welsh Language Dataset
+         */
+        public readonly bool $pafw,
+        /**
+         * UK Multiple Residence Dataset
+         */
+        public readonly bool $mr,
+        /**
+         * UK Not Yet Built Dataset
+         */
+        public readonly bool $nyb,
+        /**
+         * UK AddressBase dataset
+         */
+        public readonly bool $ab,
+        /**
+         * UK AddressBase Premium dataset
+         */
+        public readonly ?bool $abp,
+        /**
+         * Northern Ireland Pointer Dataset
+         */
+        public readonly bool $nip,
+        /**
+         * US Address Dataset
+         */
+        public readonly bool $usps,
+        /**
+         * Republic of Ireland: Eircode Address Database
+         */
+        public readonly bool $ecad,
+        /**
+         * Republic of Ireland: Eircode Address File
+         */
+        public readonly bool $ecaf,
+        /**
+         * Australia: Geocoded National Address File
+         */
+        public readonly bool $gnaf,
+        /**
+         * Asia Pacific Address File
+         */
+        public readonly bool $hereap,
+        /**
+         * Hong Kong Address File
+         */
+        public readonly bool $herehk,
+        /**
+         * India Address File
+         */
+        public readonly bool $herei,
+        /**
+         * Macau Address File
+         */
+        public readonly bool $herem,
+        /**
+         * Middle East and Africa Address File
+         */
+        public readonly bool $heremea,
+        /**
+         * Middle East and Africa Standalone Intermediate Maps Address File
+         */
+        public readonly bool $heremeas,
+        /**
+         * North America Address File
+         */
+        public readonly bool $herena,
+        /**
+         * Oceania Address File
+         */
+        public readonly bool $hereo,
+        /**
+         * South America Address File
+         */
+        public readonly bool $heresa,
+        /**
+         * Taiwan Address File
+         */
+        public readonly bool $heret,
+        /**
+         * Eastern Europe Address File
+         */
+        public readonly bool $hereee,
+        /**
+         * Western Europe Address File
+         */
+        public readonly bool $herewe,
+        /**
+         * Phone validation is enabled
+         */
+        public readonly bool $phone,
+        /**
+         * Email validation is enabled
+         */
+        public readonly bool $email,
+        /**
+         * Netherlands: Kadaster BAG 2.0 Address File
+         */
+        public readonly bool $kadaster,
+        /**
+         * Norway: Kartverket Address File
+         */
+        public readonly bool $kartverket,
+        /**
+         * South Korea: MOIS Address File
+         */
+        public readonly bool $mois,
+        /**
+         * Denmark: Danmarks Adresseregister (DAR)
+         */
+        public readonly bool $sdfi,
+        /**
+         * Canada: Statistics Canada National Address Register
+         */
+        public readonly bool $cannar,
+        /**
+         * Belgium: FOD BOSA Address File
+         */
+        public readonly bool $fodbosa,
+        /**
+         * Japan: UPU Address File
+         */
+        public readonly bool $upujp,
+        /**
+         * Austria: BEV Address File
+         */
+        public readonly bool $bev,
+        /**
+         * France: BAN (Base Adresse Nationale)
+         */
+        public readonly bool $ban,
+        /**
+         * Switzerland and Liechtenstein: Swisstopo Address File
+         */
+        public readonly bool $swt,
+        /**
+         * UK GBR Cleanse
+         */
+        public readonly bool $gbrcleanse,
+        /**
+         * US CASS Cleanse
+         */
+        public readonly bool $uspscleanse,
+    ) {}
+
+    /**
+     * @param  ApiKeyDatasetsArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            paf: $attributes['paf'] ?? throw self::missing('paf'),
+            pafa: $attributes['pafa'] ?? throw self::missing('pafa'),
+            pafw: $attributes['pafw'] ?? throw self::missing('pafw'),
+            mr: $attributes['mr'] ?? throw self::missing('mr'),
+            nyb: $attributes['nyb'] ?? throw self::missing('nyb'),
+            ab: $attributes['ab'] ?? throw self::missing('ab'),
+            abp: $attributes['abp'] ?? null,
+            nip: $attributes['nip'] ?? throw self::missing('nip'),
+            usps: $attributes['usps'] ?? throw self::missing('usps'),
+            ecad: $attributes['ecad'] ?? throw self::missing('ecad'),
+            ecaf: $attributes['ecaf'] ?? throw self::missing('ecaf'),
+            gnaf: $attributes['gnaf'] ?? throw self::missing('gnaf'),
+            hereap: $attributes['hereap'] ?? throw self::missing('hereap'),
+            herehk: $attributes['herehk'] ?? throw self::missing('herehk'),
+            herei: $attributes['herei'] ?? throw self::missing('herei'),
+            herem: $attributes['herem'] ?? throw self::missing('herem'),
+            heremea: $attributes['heremea'] ?? throw self::missing('heremea'),
+            heremeas: $attributes['heremeas'] ?? throw self::missing('heremeas'),
+            herena: $attributes['herena'] ?? throw self::missing('herena'),
+            hereo: $attributes['hereo'] ?? throw self::missing('hereo'),
+            heresa: $attributes['heresa'] ?? throw self::missing('heresa'),
+            heret: $attributes['heret'] ?? throw self::missing('heret'),
+            hereee: $attributes['hereee'] ?? throw self::missing('hereee'),
+            herewe: $attributes['herewe'] ?? throw self::missing('herewe'),
+            phone: $attributes['phone'] ?? throw self::missing('phone'),
+            email: $attributes['email'] ?? throw self::missing('email'),
+            kadaster: $attributes['kadaster'] ?? throw self::missing('kadaster'),
+            kartverket: $attributes['kartverket'] ?? throw self::missing('kartverket'),
+            mois: $attributes['mois'] ?? throw self::missing('mois'),
+            sdfi: $attributes['sdfi'] ?? throw self::missing('sdfi'),
+            cannar: $attributes['cannar'] ?? throw self::missing('cannar'),
+            fodbosa: $attributes['fodbosa'] ?? throw self::missing('fodbosa'),
+            upujp: $attributes['upujp'] ?? throw self::missing('upujp'),
+            bev: $attributes['bev'] ?? throw self::missing('bev'),
+            ban: $attributes['ban'] ?? throw self::missing('ban'),
+            swt: $attributes['swt'] ?? throw self::missing('swt'),
+            gbrcleanse: $attributes['gbrcleanse'] ?? throw self::missing('gbrcleanse'),
+            uspscleanse: $attributes['uspscleanse'] ?? throw self::missing('uspscleanse'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        $array = [
+            'paf' => $this->paf,
+            'pafa' => $this->pafa,
+            'pafw' => $this->pafw,
+            'mr' => $this->mr,
+            'nyb' => $this->nyb,
+            'ab' => $this->ab,
+            'nip' => $this->nip,
+            'usps' => $this->usps,
+            'ecad' => $this->ecad,
+            'ecaf' => $this->ecaf,
+            'gnaf' => $this->gnaf,
+            'hereap' => $this->hereap,
+            'herehk' => $this->herehk,
+            'herei' => $this->herei,
+            'herem' => $this->herem,
+            'heremea' => $this->heremea,
+            'heremeas' => $this->heremeas,
+            'herena' => $this->herena,
+            'hereo' => $this->hereo,
+            'heresa' => $this->heresa,
+            'heret' => $this->heret,
+            'hereee' => $this->hereee,
+            'herewe' => $this->herewe,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'kadaster' => $this->kadaster,
+            'kartverket' => $this->kartverket,
+            'mois' => $this->mois,
+            'sdfi' => $this->sdfi,
+            'cannar' => $this->cannar,
+            'fodbosa' => $this->fodbosa,
+            'upujp' => $this->upujp,
+            'bev' => $this->bev,
+            'ban' => $this->ban,
+            'swt' => $this->swt,
+            'gbrcleanse' => $this->gbrcleanse,
+            'uspscleanse' => $this->uspscleanse,
+        ];
+
+        if ($this->abp !== null) {
+            $array['abp'] = $this->abp;
+        }
+
+        return $array;
+    }
+}

@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Responses;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+use AddressZen\Types\ApiKeyDetails;
+
+/**
+ * API Key Details Response
+ *
+ * @phpstan-import-type ApiKeyDetailsArray from ApiKeyDetails
+ * @phpstan-type ApiKeyDetailsResponseArray array{result: ApiKeyDetailsArray, code: 2000, message: 'Success'}
+ *
+ * @implements ResponseContract<ApiKeyDetailsResponseArray>
+ */
+final class ApiKeyDetailsResponse implements ResponseContract
+{
+    /** @use ArrayAccessible<ApiKeyDetailsResponseArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * API Key Details
+         */
+        public readonly ApiKeyDetails $result,
+        /**
+         * @var 2000
+         */
+        public readonly int $code,
+        /**
+         * @var 'Success'
+         */
+        public readonly string $message,
+    ) {}
+
+    /**
+     * @param  ApiKeyDetailsResponseArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            result: ApiKeyDetails::from(($attributes['result'] ?? throw self::missing('result'))),
+            code: $attributes['code'] ?? throw self::missing('code'),
+            message: $attributes['message'] ?? throw self::missing('message'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'result' => $this->result->toArray(),
+            'code' => $this->code,
+            'message' => $this->message,
+        ];
+    }
+}

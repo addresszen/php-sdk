@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * API Key Notifications
+ *
+ * @phpstan-type ApiKeyNotificationsArray array{emails: list<string>, enabled: bool, balance_threshold: int|null, no_balance: bool, limit_reached: bool}
+ *
+ * @implements ResponseContract<ApiKeyNotificationsArray>
+ */
+final class ApiKeyNotifications implements ResponseContract
+{
+    /** @use ArrayAccessible<ApiKeyNotificationsArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * A list of email addresses designated by you to receive notifications about this key.
+         *
+         * @var list<string>
+         */
+        public readonly array $emails,
+        /**
+         * Indicates whether email notifications are enabled.
+         */
+        public readonly bool $enabled,
+        /**
+         * Balance threshold that triggers a reminder email. null means disabled.
+         */
+        public readonly ?int $balanceThreshold,
+        /**
+         * Send notice when balance hits zero.
+         */
+        public readonly bool $noBalance,
+        /**
+         * Send notice when rate limit is reached.
+         */
+        public readonly bool $limitReached,
+    ) {}
+
+    /**
+     * @param  ApiKeyNotificationsArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            emails: $attributes['emails'] ?? throw self::missing('emails'),
+            enabled: $attributes['enabled'] ?? throw self::missing('enabled'),
+            balanceThreshold: $attributes['balance_threshold'] ?? null,
+            noBalance: $attributes['no_balance'] ?? throw self::missing('no_balance'),
+            limitReached: $attributes['limit_reached'] ?? throw self::missing('limit_reached'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'emails' => $this->emails,
+            'enabled' => $this->enabled,
+            'balance_threshold' => $this->balanceThreshold,
+            'no_balance' => $this->noBalance,
+            'limit_reached' => $this->limitReached,
+        ];
+    }
+}

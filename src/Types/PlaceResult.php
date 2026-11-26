@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * PlaceResponseResult
+ *
+ * @phpstan-import-type PlaceSuggestionArray from PlaceSuggestion
+ * @phpstan-type PlaceResultArray array{hits: list<PlaceSuggestionArray>}
+ *
+ * @implements ResponseContract<PlaceResultArray>
+ */
+final class PlaceResult implements ResponseContract
+{
+    /** @use ArrayAccessible<PlaceResultArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * List of up to 10 matching places
+         *
+         * @var list<PlaceSuggestion>
+         */
+        public readonly array $hits,
+    ) {}
+
+    /**
+     * @param  PlaceResultArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            hits: array_map(static fn ($item) => self::hydrateHit($item), ($attributes['hits'] ?? throw self::missing('hits'))),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'hits' => array_map(static fn ($item) => $item->toArray(), $this->hits),
+        ];
+    }
+
+    /**
+     * @param  PlaceSuggestionArray  $value
+     */
+    private static function hydrateHit(array $value): PlaceSuggestion
+    {
+        /** @var PlaceSuggestionArray $variant */
+        $variant = $value;
+
+        return PlaceSuggestion::from($variant);
+    }
+}

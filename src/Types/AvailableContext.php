@@ -1,0 +1,73 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Generated from the OpenAPI spec. Do not edit.
+ */
+
+namespace AddressZen\Types;
+
+use AddressZen\Concerns\ArrayAccessible;
+use AddressZen\Contracts\ResponseContract;
+
+/**
+ * AvailableContext
+ *
+ * @phpstan-type AvailableContextArray array{iso_3: string, iso_2: string, description: string, emoji: string, rgeo: bool}
+ *
+ * @implements ResponseContract<AvailableContextArray>
+ */
+final class AvailableContext implements ResponseContract
+{
+    /** @use ArrayAccessible<AvailableContextArray> */
+    use ArrayAccessible;
+
+    private function __construct(
+        /**
+         * 3 letter ISO code
+         */
+        public readonly string $iso3,
+        /**
+         * 2 letter ISO code
+         */
+        public readonly string $iso2,
+        /**
+         * Country descriptor to show in Address Finder
+         */
+        public readonly string $description,
+        /**
+         * Emoji text icon
+         */
+        public readonly string $emoji,
+        /**
+         * Indicates availability of reverse geolocation search
+         */
+        public readonly bool $rgeo,
+    ) {}
+
+    /**
+     * @param  AvailableContextArray  $attributes
+     */
+    public static function from(array $attributes): self
+    {
+        return new self(
+            iso3: $attributes['iso_3'] ?? throw self::missing('iso_3'),
+            iso2: $attributes['iso_2'] ?? throw self::missing('iso_2'),
+            description: $attributes['description'] ?? throw self::missing('description'),
+            emoji: $attributes['emoji'] ?? throw self::missing('emoji'),
+            rgeo: $attributes['rgeo'] ?? throw self::missing('rgeo'),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'iso_3' => $this->iso3,
+            'iso_2' => $this->iso2,
+            'description' => $this->description,
+            'emoji' => $this->emoji,
+            'rgeo' => $this->rgeo,
+        ];
+    }
+}
